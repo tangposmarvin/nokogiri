@@ -40,7 +40,7 @@ static void relink_namespace(xmlNodePtr reparented)
   if (reparented->ns == NULL || reparented->ns->prefix == NULL) {
     name = xmlSplitQName2(reparented->name, &prefix);
 
-    if(reparented->type == XML_ATTRIBUTE_NODE) {
+    if (reparented->type == XML_ATTRIBUTE_NODE) {
       if (prefix == NULL || strcmp((char*)prefix, XMLNS_PREFIX) == 0) { return; }
     }
 
@@ -59,10 +59,17 @@ static void relink_namespace(xmlNodePtr reparented)
   /* Avoid segv when relinking against unlinked nodes. */
   if (reparented->type != XML_ELEMENT_NODE || !reparented->parent) { return; }
 
+  // TODO  if everything works when this is commented out, where is the default
+  // TODO  namespace being applied?
+
+  // TODO  go find all the namespace-related tickets and see if this is what's
+  // TODO  up with that. including the one you might have closed this morning?
+  // TODO  and the email?
+
   /* Make sure that our reparented node has the correct namespaces */
-  if (!reparented->ns && reparented->doc != (xmlDocPtr)reparented->parent) {
-    xmlSetNs(reparented, reparented->parent->ns);
-  }
+  /* if (!reparented->ns && reparented->doc != (xmlDocPtr)reparented->parent) { */
+  /*   xmlSetNs(reparented, reparented->parent->ns); */
+  /* } */
 
   /* Search our parents for an existing definition */
   if (reparented->nsDef) {
