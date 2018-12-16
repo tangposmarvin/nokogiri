@@ -38,12 +38,19 @@ module Nokogiri
         assert_match(/3:30/, doc.to_s)
       end
 
-      def test_passed_options_have_an_effect
-        html = "<span>test</span"
-        doc = Nokogiri::HTML::DocumentFragment.parse(html) do |options|
-          options.norecover
+      def test_options_set_in_block_have_effect
+        options = nil
+        html = "<span> < </span>"
+        doc = Nokogiri::HTML::DocumentFragment.parse(html) do |config|
+          config.norecover
+          options = config
         end
-        assert_equal "<span>test</span>", doc.to_html
+        assert_equal Nokogiri::XML::ParseOptions::DEFAULT_HTML & ~Nokogiri::XML::ParseOptions::RECOVER, options.to_i
+        assert_equal "<span> </span>", doc.to_html
+      end
+
+      def test_options_passed_as_param_have_effect
+        skip
       end
 
       def test_parse_encoding

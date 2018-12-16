@@ -32,28 +32,6 @@ module Nokogiri
         assert_equal 0, fragment.children.length
       end
 
-      def test_document_takes_config_block
-        options = nil
-        Nokogiri::HTML(File.read(HTML_FILE), HTML_FILE) do |cfg|
-          options = cfg
-          options.nonet.nowarning.dtdattr
-        end
-        assert options.nonet?
-        assert options.nowarning?
-        assert options.dtdattr?
-      end
-
-      def test_parse_takes_config_block
-        options = nil
-        Nokogiri::HTML.parse(File.read(HTML_FILE), HTML_FILE) do |cfg|
-          options = cfg
-          options.nonet.nowarning.dtdattr
-        end
-        assert options.nonet?
-        assert options.nowarning?
-        assert options.dtdattr?
-      end
-
       def test_subclass
         klass = Class.new(Nokogiri::HTML::Document)
         doc = klass.new
@@ -715,6 +693,70 @@ eohtml
         #
         100.times do |i|
           Nokogiri::HTML::Document.new.internal_subset.remove
+        end
+      end
+    end
+
+    class TestDocument2 < Nokogiri::TestCase
+      describe "HTML::Document" do
+        describe "parse options" do
+          before do
+            @html = "<div> < </div>"
+          end
+
+          it "assert on default behavior" do
+             # asserting on DEFAULT_HTML behavior to test assumptions
+            doc = Nokogiri::HTML::Document.parse @html
+            assert_equal "<div> &lt; </div>", doc.at_css("div").to_html
+          end
+
+          describe "as a block" do
+            it "calls the block with DEFAULT_HTML options" do
+              options = nil
+              Nokogiri::HTML::Document.parse(@html) do |config|
+                options = config
+              end
+              assert_equal Nokogiri::XML::ParseOptions::DEFAULT_HTML, options.to_i
+            end
+
+            describe "read_io" do
+              it "uses the configured options to parse the document" do
+                doc = Nokogiri::HTML::Document.parse(StringIO.new(@html)) do |config|
+                  config.norecover # should affect how the bare `<` is parsed
+                end
+                assert_equal "<div> </div>", doc.at_css("div").to_html
+              end
+            end
+
+            describe "read_memory" do
+              it "uses the configured options to parse the document" do
+                doc = Nokogiri::HTML::Document.parse(@html) do |config|
+                  config.norecover # should affect how the bare `<` is parsed
+                end
+                assert_equal "<div> </div>", doc.at_css("div").to_html
+              end
+            end
+          end
+
+          describe "as a param" do
+            before do
+              @options = Nokogiri::XML::ParseOptions::DEFAULT_HTML & ~Nokogiri::XML::ParseOptions::RECOVER
+            end
+
+            describe "read_io" do
+              it "uses the configured options to parse the document" do
+                doc = Nokogiri::HTML::Document.parse(StringIO.new(@html), nil, nil, @options)
+                assert_equal "<div> </div>", doc.at_css("div").to_html
+              end
+            end
+
+            describe "read_memory" do
+              it "uses the configured options to parse the document" do
+                doc = Nokogiri::HTML::Document.parse(@html, nil, nil, @options)
+                assert_equal "<div> </div>", doc.at_css("div").to_html
+              end
+            end
+          end
         end
       end
     end
