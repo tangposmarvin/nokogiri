@@ -4,7 +4,7 @@
 exclude: !ruby/regexp '/
 (^\.\/
   ((\.git
-    |.yardoc
+    |\.yardoc
     |concourse
     |gems
     |ports
@@ -14,6 +14,7 @@ exclude: !ruby/regexp '/
     |tmp
   )\/)
   |\.(autotest
+     |DS_Store
      |cross_rubies
      |editorconfig
      |gemtest
