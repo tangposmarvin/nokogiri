@@ -666,7 +666,7 @@ end
 
 {
   "xml2"  => ['xmlParseDoc',            'libxml/parser.h'],
-  # "xslt"  => ['xsltParseStylesheetDoc', 'libxslt/xslt.h'],
+  "xslt"  => ['xsltParseStylesheetDoc', 'libxslt/xslt.h'],
   "exslt" => ['exsltFuncRegister',      'libexslt/exslt.h'],
 }.each do |lib, (func, header)|
   have_func(func, header) ||
@@ -675,7 +675,7 @@ end
     asplode("lib#{lib}")
 end
 
-# have_func('xmlHasFeature') or abort "xmlHasFeature() is missing."
+have_func('xmlHasFeature') or abort "xmlHasFeature() is missing."
 have_func('xmlFirstElementChild')
 have_func('xmlRelaxNGSetParserStructuredErrors')
 have_func('xmlRelaxNGSetParserStructuredErrors')
