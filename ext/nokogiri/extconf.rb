@@ -664,24 +664,24 @@ EOM
   end
 end
 
-# {
-#   "xml2"  => ['xmlParseDoc',            'libxml/parser.h'],
-#   "xslt"  => ['xsltParseStylesheetDoc', 'libxslt/xslt.h'],
-#   "exslt" => ['exsltFuncRegister',      'libexslt/exslt.h'],
-# }.each do |lib, (func, header)|
-#   have_func(func, header) ||
-#   have_library(lib, func, header) ||
-#   have_library("lib#{lib}", func, header) or
-#     asplode("lib#{lib}")
-# end
+{
+  "xml2"  => ['xmlParseDoc',            'libxml/parser.h'],
+  # "xslt"  => ['xsltParseStylesheetDoc', 'libxslt/xslt.h'],
+  "exslt" => ['exsltFuncRegister',      'libexslt/exslt.h'],
+}.each do |lib, (func, header)|
+  have_func(func, header) ||
+  have_library(lib, func, header) ||
+  have_library("lib#{lib}", func, header) or
+    asplode("lib#{lib}")
+end
 
 # have_func('xmlHasFeature') or abort "xmlHasFeature() is missing."
-# have_func('xmlFirstElementChild')
-# have_func('xmlRelaxNGSetParserStructuredErrors')
-# have_func('xmlRelaxNGSetParserStructuredErrors')
-# have_func('xmlRelaxNGSetValidStructuredErrors')
-# have_func('xmlSchemaSetValidStructuredErrors')
-# have_func('xmlSchemaSetParserStructuredErrors')
+have_func('xmlFirstElementChild')
+have_func('xmlRelaxNGSetParserStructuredErrors')
+have_func('xmlRelaxNGSetParserStructuredErrors')
+have_func('xmlRelaxNGSetValidStructuredErrors')
+have_func('xmlSchemaSetValidStructuredErrors')
+have_func('xmlSchemaSetParserStructuredErrors')
 
 create_makefile('nokogiri/nokogiri')
 

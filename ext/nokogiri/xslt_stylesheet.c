@@ -73,7 +73,7 @@ static VALUE parse_stylesheet_doc(VALUE klass, VALUE xmldocobj)
     xsltSetGenericErrorFunc((void *)errstr, xslt_generic_error_handler);
 
     xml_cpy = xmlCopyDoc(xml, 1); /* 1 => recursive */
-    ss = xsltParseStylesheetDoc(xml_cpy);
+    // ss = xsltParseStylesheetDoc(xml_cpy);
 
     xsltSetGenericErrorFunc(NULL, NULL);
 
