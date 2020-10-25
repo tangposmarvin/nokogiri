@@ -2,6 +2,8 @@
 module Nokogiri
   module HTML
     class Document < Nokogiri::XML::Document
+      def encoding=
+      end
       ###
       # Get the meta tag encoding for this document.  If there is no meta tag,
       # then nil is returned.
