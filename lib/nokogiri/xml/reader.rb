@@ -76,6 +76,7 @@ module Nokogiri
       # The XML source
       attr_reader :source
 
+      def empty_element?;end
       alias :self_closing? :empty_element?
 
       def initialize source, url = nil, encoding = nil # :nodoc:

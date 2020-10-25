@@ -11,6 +11,12 @@ module Nokogiri
 
       # The Document this NodeSet is associated with
       attr_accessor :document
+      def push
+      end
+      def unlink;end
+      def length;end
+      def |;end
+      
 
       alias :clone :dup
 

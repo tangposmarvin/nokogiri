@@ -356,6 +356,49 @@ module Nokogiri
         # call c extension
         process_xincludes(options.to_i)
       end
+      def key?
+      end
+      def next_sibling
+      end
+      def previous_sibling
+      end
+      def add_next_sibling
+      end
+      def add_previous_sibling
+      end
+      def unlink
+      end
+      def node_name
+      end
+      def add_namespace_definition
+      end
+      def content
+      end
+      def node_name=
+      end
+      def node_type
+      end
+      def text
+      end
+      def element_children
+      end
+      def attribute_nodes
+      end
+      def attributes
+      end
+      def content   
+      end
+      def namespace
+      end
+      def namespace_definitions   
+      end
+      def parent
+      end
+      def line
+      end
+
+      def value=
+      end
 
       alias :next :next_sibling
       alias :previous :previous_sibling

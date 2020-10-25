@@ -12,7 +12,7 @@ begin
   RUBY_VERSION =~ /(\d+\.\d+)/
   require "nokogiri/#{$1}/nokogiri"
 rescue LoadError
-  require 'nokogiri/nokogiri'
+  # require 'nokogiri/nokogiri'
 end
 require 'nokogiri/version'
 require 'nokogiri/syntax_error'
@@ -109,7 +109,7 @@ module Nokogiri
     end
   end
 
-  Nokogiri.install_default_aliases
+  # Nokogiri.install_default_aliases
 end
 
 ###

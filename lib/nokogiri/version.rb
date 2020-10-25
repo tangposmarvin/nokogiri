@@ -142,7 +142,7 @@ module Nokogiri
     RUBY_VERSION =~ /(\d+\.\d+)/
     require "nokogiri/#{$1}/nokogiri"
   rescue LoadError
-    require "nokogiri/nokogiri"
+    require_relative "../nokogiri"
   end
 
   # More complete version information about libxml
